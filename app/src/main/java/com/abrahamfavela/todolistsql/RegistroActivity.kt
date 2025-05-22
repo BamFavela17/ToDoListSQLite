@@ -9,11 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.abrahamfavela.todolistsql.databinding.ActivityActualizarNotaBinding
 
 class RegistroActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityActualizarNotaBinding
 
     private lateinit var dbHelper: NotasDBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,19 +26,28 @@ class RegistroActivity : AppCompatActivity() {
         val registerButton = findViewById<Button>(R.id.btn_Registrar)
 
         registerButton.setOnClickListener {
-            val nombres = nombresEditText.text.toString()
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
-            val repeatPassword = repeatPasswordEditText.text.toString()
-            binding
+            val nombres = nombresEditText.text.toString().trim()
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
+            val repeatPassword = repeatPasswordEditText.text.toString().trim()
+            
+            // Validar campos vacíos
+            if (nombres.isEmpty() || email.isEmpty() || password.isEmpty() || repeatPassword.isEmpty()) {
+                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            // Validar que las contraseñas coincidan
             if (password != repeatPassword) {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (dbHelper.addUser (email, password, nombres)) {
+            
+            // Registrar usuario
+            if (dbHelper.addUser(email, password, nombres)) {
                 Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
-                // Redirigir a la actividad de login o a otra parte de la app
-                val intent = Intent(this, MainActivity::class.java)
+                // Redirigir a la actividad de login
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish() // Cerrar RegistroActivity
             } else {

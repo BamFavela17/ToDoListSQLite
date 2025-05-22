@@ -21,6 +21,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Verificar si el usuario ya inició sesión, si no, redirigir al LoginActivity
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+        if (!isLoggedIn) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
+
         db = NotasDBHelper(this)
         notasAdaptador = NotasAdaptador(db.getAllNotas(), this)
         binding.notasRV.layoutManager = LinearLayoutManager(this)
