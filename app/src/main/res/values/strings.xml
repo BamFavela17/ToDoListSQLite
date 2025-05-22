@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ToDoListSQL</string>
+    <string name="txt_agregarNota">Agregar nota</string>
+    <string name="etTitulo">Titulo de la nota</string>
+    <string name="etDescripcion">Descripcion de la nota</string>
+    <string name="txt_notas">Notas</string>
+    <string name="item_titulo">Titulo</string>
+    <string name="item_descripcion">Descripcion</string>
+
+    <string name="txt_login">Login</string>
+    <string name="et_Email">Correo electonico</string>
+    <string name="et_Password">Contraseña</string>
+    <string name="btn_Ingresar">Ingresar</string>
+    <string name="txt_no_tienes_cuenta">¿No tienes una cuenta?</string>
+    <string name="tv_registrarme">Registrarme</string>
+    <string name="tv_recuperar_cuenta">¿olvidaste la contraseña? <b> Recuperar</b></string>
+
+    <string name="txt_registro">Registro</string>
+    <string name="et_Nombres">Nombres</string>
+    <string name="txt_R_Password">Repita la Contraseña</string>
+    <string name="btn_Registrar">Registrar</string>
+
+    <string name="txt_actualizarNota">Actualizar nota</string>
+</resources>
