@@ -16,7 +16,8 @@ class NotasDBHelper (context: Context) : SQLiteOpenHelper (
         // tabla del login
         val createTableU = ("CREATE TABLE " + TABLE_USERS + "("
                 + COLUMN_EMAIL + " TEXT PRIMARY KEY,"
-                + COLUMN_PASSWORD + " TEXT" + ")")
+                + COLUMN_PASSWORD + " TEXT,"
+                + COLUMN_NOMBRES + " TEXT" + ")")
         db?.execSQL(createTableU)
     }
 
@@ -40,9 +41,8 @@ class NotasDBHelper (context: Context) : SQLiteOpenHelper (
         const val TABLE_USERS = "users"
         const val COLUMN_EMAIL = "email"
         const val COLUMN_PASSWORD = "password"
-    }
-
-    fun validateUser (email: String, password: String): Boolean {
+        private const val COLUMN_NOMBRES = "nombres"
+    }    fun validateUser(email: String, password: String): Boolean {
         val db = this.readableDatabase
         val cursor = db.query(TABLE_USERS, null, "$COLUMN_EMAIL=? AND $COLUMN_PASSWORD=?", arrayOf(email, password), null, null, null)
         val isValid = cursor.count > 0
@@ -50,13 +50,14 @@ class NotasDBHelper (context: Context) : SQLiteOpenHelper (
         db.close()
         return isValid
     }
-// funciones del usuario
-    fun addUser (email: String, password: String, nombres: String): Boolean {
+    
+    // funciones del usuario
+    fun addUser(email: String, password: String, nombres: String): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COLUMN_EMAIL, email)
         contentValues.put(COLUMN_PASSWORD, password)
-        contentValues.put("nombres", nombres) // Agregar columna para nombres
+        contentValues.put(COLUMN_NOMBRES, nombres) // Usar la constante definida
         // Verificar si el usuario ya existe
         val cursor = db.query(TABLE_USERS, null, "$COLUMN_EMAIL=?", arrayOf(email), null, null, null)
         if (cursor.count > 0) {
